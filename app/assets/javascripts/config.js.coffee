@@ -1,0 +1,2 @@
+window.config =
+  DEBUG: true

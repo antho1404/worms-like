@@ -42,5 +42,6 @@ gem "thin"
 group :development do
   gem "quiet_assets"
   gem "bullet"
+  gem 'meta_request', '0.2.1'
   gem "translate-rails3", :require => "translate"
 end
