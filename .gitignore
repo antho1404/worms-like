@@ -1,4 +1,4 @@
 /node_modules
-/public/javascripts/*
 !/public/javascripts/lib
+/public/javascripts/*
 *.sublime-*

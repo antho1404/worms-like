@@ -1,4 +1,0 @@
-
-  window.config = {
-    DEBUG: true
-  };
