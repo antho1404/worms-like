@@ -11,7 +11,6 @@
         url: url,
         success: function(map) {
           var i, instruction_regex, p, path, pathes, _i, _len, _len2, _len3, _len4, _ref;
-          console.log(map);
           instruction_regex = new RegExp("([a-z])", "i");
           pathes = [];
           _ref = $("#layer1 path", $(map));

@@ -3,7 +3,6 @@ class SVGHelper
     $.ajax
       url: url
       success: (map) =>
-        console.log map
         instruction_regex = new RegExp "([a-z])", "i"
         pathes = []
         for p in $("#layer1 path", $(map))

@@ -1,8 +1,8 @@
-express = require 'express'
-http    = require 'http'
-fs      = require 'fs'
+express       = require 'express'
+http          = require 'http'
+fs            = require 'fs'
 expresscoffee = require 'express-coffee'
-routes  = require './routes'
+routes        = require './routes'
 
 app = express()
 
