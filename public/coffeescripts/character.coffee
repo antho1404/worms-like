@@ -1,9 +1,11 @@
 class Character
   constructor: (@team, number) ->
-    @name   = number
-    @life   = 100
-    @weapon = null
-    @body   = @createBody()
+    @name    = number
+    @life    = 100
+    @weapon  = null
+    @body    = @createBody()
+
+  isCurrent: -> @ is App.getInstance().currentCharacter
 
   createBody: ->
     fixDef  = DrawHelper.fixDef
@@ -29,10 +31,13 @@ class Character
   update: ->
     angle = @body.GetAngle() * 180 / Math.PI
     pos   = @body.GetPosition()
-    App.getInstance()
-    .canvas
-    .drawRect({ strokeStyle: "black", strokeWidth: "1", x: pos.x - 10, y: pos.y - 20, width: 20, height: 5, fromCenter: false })
-    .drawRect({ fillStyle: @team.color, x: pos.x - 10, y: pos.y - 20, width: 20 * @life / 100, height: 5, fromCenter: false })
-    .drawText({ fillStyle: "black", x: pos.x, y: pos.y - 30, text: @name })
+    canvas = App.getInstance().canvas
+    canvas
+      .drawRect({ strokeStyle: "black", strokeWidth: "1", x: pos.x - 10, y: pos.y - 20, width: 20, height: 5, fromCenter: false })
+      .drawRect({ fillStyle: @team.color, x: pos.x - 10, y: pos.y - 20, width: 20 * @life / 100, height: 5, fromCenter: false })
+      .drawText({ fillStyle: "black", x: pos.x, y: pos.y - 30, text: @name })
+    if @isCurrent()
+      canvas
+        .drawArc({ fillStyle: "red", radius: 5, x: pos.x, y: pos.y })
 
 window.Character = Character

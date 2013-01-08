@@ -5,6 +5,7 @@ class Team
 
   nextStep: ->
     @current_characters = (@current_characters + 1) % @characters.length
+    @characters[@current_characters]
 
   update: ->
     for character in @characters
