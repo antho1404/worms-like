@@ -26,6 +26,9 @@ class App
   createGame: ->
     @game = new Game()
 
+  nextStep: ->
+    @game.nextStep()
+
   createObjects: (x=(Math.random() * @width), y=(Math.random() * @height)) ->
     fixDef  = DrawHelper.fixDef
     bodyDef = DrawHelper.bodyDef

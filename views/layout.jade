@@ -24,4 +24,13 @@ html
     script(type="text/javascript", src="javascripts/application.js")
 
     script(type="text/javascript")
-      $(document).ready(function() { App.getInstance().createGame(); });
+      $(document).ready(function() {
+        var app = App.getInstance();
+        app.createGame();
+
+        $("canvas").mousemove(function(e) { $("#x").val(e.clientX); $("#y").val(e.clientY); });
+        $("#zoom").change(function() { app.zoom = $(this).val(); });
+        $("#xshift").change(function() { app.xshift = $(this).val(); });
+        $("#yshift").change(function() { app.yshift = $(this).val(); });
+        $("#next").click(function() { app.nextStep(); return false; });
+      });
