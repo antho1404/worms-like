@@ -1,4 +1,4 @@
-/log/*.log
-/tmp
 /node_modules
+/public/javascripts/*
+!/public/javascripts/lib
 *.sublime-*
