@@ -1,6 +1,7 @@
 class Map
   constructor: (name) ->
-    @url = "/images/maps/#{name}.svg"
+    @config = config["Map"]
+    @url    = "#{@config.path}#{name}#{@config.extension}"
     @mapImg = $("img#map")[0]
     $(@mapImg).attr "src", @url
 

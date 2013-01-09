@@ -1,8 +1,8 @@
 class Game
-  constructor: (map="dessin", teamNumber=2) ->
-    colors = ["red", "blue", "green", "orange"]
-    @map = new Map(map)
-    @teams = (new Team(colors[i], colors[i]) for i in [0..teamNumber-1])
+  constructor: (map="dessin", teamNumber) ->
+    @config = config["Game"]
+    @map    = new Map(map)
+    @teams  = (new Team(i) for i in [0..@config.team_number-1])
     @current_team = 0
 
   nextStep: ->

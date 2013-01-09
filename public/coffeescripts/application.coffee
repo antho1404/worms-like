@@ -1,8 +1,9 @@
 class App
   constructor: ->
+    @config  = config["App"]
     @game    = null
 
-    g        = new b2Vec2 0, 100
+    g        = new b2Vec2 0, @config.gravity
     @world   = new b2World g, true
 
     @canvas = $("#canvas")
@@ -17,11 +18,16 @@ class App
       debugDraw.SetLineThickness 1.0
       debugDraw.SetFlags b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit
       @world.SetDebugDraw debugDraw
-    # @createObjects()
 
     window.setInterval (=> @update()), 1000 / 60
 
-    @canvas.click (e) => @createObjects(e.clientX, e.clientY)
+    $(document).keydown (e) =>
+      @currentCharacter.moveRight() if e.keyCode is 39
+      @currentCharacter.moveLeft()  if e.keyCode is 37
+      @currentCharacter.jump()      if e.keyCode is 38
+    $(document).keyup (e) =>
+      @currentCharacter.stop() if e.keyCode is 39
+      @currentCharacter.stop()  if e.keyCode is 37
 
   createGame: ->
     @game = new Game()
@@ -30,30 +36,15 @@ class App
   nextStep: ->
     @currentCharacter = @game.nextStep()
 
-  createObjects: (x=(Math.random() * @width), y=(Math.random() * @height)) ->
-    fixDef  = DrawHelper.fixDef
-    bodyDef = DrawHelper.bodyDef
-
-    fixDef.shape       = new b2PolygonShape
-    fixDef.shape.SetAsBox 10, 10
-    fixDef.density     = 1
-    fixDef.friction    = 10
-    fixDef.restitution = 0
-    bodyDef.type = b2Body.b2_dynamicBody
-    bodyDef.userData = "shape"
-    bodyDef.position.Set x, y
-    body = @world.CreateBody bodyDef
-    # body.SetLinearVelocity new b2Vec2(Math.random() * 50 * (if Math.random() > 0.5 then -1 else 1), Math.random() * (if Math.random() > 0.5 then -1 else 1))
-    # body.SetAngularVelocity Math.random() * 2 * Math.PI * (if Math.random() > 0.5 then -1 else 1)
-    body.CreateFixture fixDef
-
   update: ->
     @world.Step 1 / 60, 10, 10
     @canvas.clearCanvas()
     @canvas.scaleCanvas({ x: @xshift, y: @yshift, scaleX: @zoom, scaleY: @zoom })
     @world.DrawDebugData() if config.DEBUG
 
-    @game.update()
+    # @game.update()
+    pos   = @currentCharacter.body.GetPosition()
+    @canvas.drawArc({ fillStyle: "red", radius: 5, x: pos.x, y: pos.y })
 
     @canvas.restoreCanvas()
     @world.ClearForces()
@@ -61,6 +52,3 @@ class App
 App.getInstance = -> window.app ||= new App()
 
 window.App = App
-
-$(document).ready ->
-
