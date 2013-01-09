@@ -10,7 +10,7 @@ window.config =
   Team:
     colors: ["red", "blue", "green", "orange"]
     names: ["red", "blue", "green", "orange"]
-    character_number: 2
+    character_number: 4
   Character:
     angular_speed: 10
     density: 1
